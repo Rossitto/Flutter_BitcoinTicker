@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'coin_data.dart';
-
-List<DropdownMenuItem<String>> listDropDownItems() {
-  List<DropdownMenuItem<String>> widgetsList = [];
-  for (String currency in currenciesList) {
-    var newItem = DropdownMenuItem(child: Text(currency), value: currency);
-    widgetsList.add(newItem);
-  }
-  return widgetsList;
-}
+import 'package:flutter/cupertino.dart';
+import 'dart:io' show Platform;
 
 class PriceScreen extends StatefulWidget {
   @override
@@ -17,6 +10,45 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'USD';
+
+  DropdownButton<String> androidDropdown() {
+    List<DropdownMenuItem<String>> dropdownItems = [];
+    for (String currency in currenciesList) {
+      var newItem = DropdownMenuItem(child: Text(currency), value: currency);
+      dropdownItems.add(newItem);
+    }
+
+    return DropdownButton<String>(
+      value: selectedCurrency,
+      items: dropdownItems,
+      onChanged: (value) {
+        setState(() {
+          selectedCurrency = value;
+        });
+      },
+    );
+  }
+
+  CupertinoPicker iOSPicker() {
+    List<Text> pickerList = [];
+    for (String currency in currenciesList) {
+      pickerList.add(Text(currency));
+    }
+    return CupertinoPicker(
+        itemExtent: 32.0,
+        onSelectedItemChanged: (selectedIndex) {
+          print(selectedIndex);
+        },
+        children: pickerList);
+  }
+
+  Widget getPicker() {
+    if (Platform.isIOS) {
+      return iOSPicker();
+    } else if (Platform.isAndroid) {
+      return androidDropdown();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +71,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ? USD',
+                  '1 BTC = ? $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
@@ -54,15 +86,7 @@ class _PriceScreenState extends State<PriceScreen> {
             alignment: Alignment.center,
             padding: EdgeInsets.only(bottom: 30.0),
             color: Colors.lightBlue,
-            child: DropdownButton<String>(
-              value: selectedCurrency,
-              items: listDropDownItems(),
-              onChanged: (value) {
-                setState(() {
-                  selectedCurrency = value;
-                });
-              },
-            ),
+            child: getPicker(),
           ),
         ],
       ),
