@@ -1,3 +1,6 @@
+import 'package:http/http.dart';
+import 'dart:convert';
+
 const List<String> currenciesList = [
   'AUD',
   'BRL',
@@ -28,4 +31,8 @@ const List<String> cryptoList = [
   'LTC',
 ];
 
-class CoinData {}
+class CoinData {
+  getCoinData() {
+    // TODO: implementation of CHALLENGE: bronze medal
+  }
+}
