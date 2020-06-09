@@ -7,9 +7,20 @@ const coinAPIUrl = 'https://rest.coinapi.io/v1/exchangerate';
 
 const cryptoCompareAPIKey =
     '1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
-const cryptoCompareURL = 'https://min-api.cryptocompare.com/data/price';
-const cryptoFullURL =
-    'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=USD&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
+const cryptoCompareApiURL =
+    'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=';
+
+// final String cryptoFullURL =
+//     'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=$currenciesInString&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
+
+final String cryptoFullURL =
+    'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=AUD,BRL,CAD,CNY,EUR,GBP,HKD,IDR,ILS,INR,JPY,MXN,NOK,NZD,PLN,RON,RUB,SEK,SGD,USD,ZAR&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
+
+final String currenciesInString = currenciesList
+    .toString()
+    .replaceAll(' ', '')
+    .replaceAll('[', '')
+    .replaceAll(']', '');
 
 const List<String> currenciesList = [
   'AUD',
@@ -42,9 +53,6 @@ const List<String> cryptoList = [
 ];
 
 class CoinData {
-  String cryptoCurrency = 'BTC';
-  String moneyCurrency = 'USD';
-
   getCoinData(url) async {
     http.Response response = await http.get(url);
 
