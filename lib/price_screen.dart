@@ -9,27 +9,29 @@ class PriceScreen extends StatefulWidget {
 }
 
 class _PriceScreenState extends State<PriceScreen> {
-  String selectedCurrency = 'USD';
-  String bitcoinPriceInUSD = '...';
-  var receivedData;
+  String selectedCurrency = 'AUD';
+  String bitcoinPrice = '...';
+  Map<String, dynamic> receivedData;
 
   @override
   void initState() {
     super.initState();
-    getDataAndUpdateUI();
-    // updateUI(receivedData);
+    getData(cryptoFullURL);
   }
 
-  void getDataAndUpdateUI() async {
-    receivedData = await CoinData().getCoinData(cryptoFullURL);
+  void getData(url) async {
+    receivedData = await CoinData().getCoinData(url);
+    print(receivedData);
+    updateUI();
+  }
 
+  void updateUI() {
     setState(() {
       if (receivedData == null) {
-        bitcoinPriceInUSD = 'ERROR';
+        bitcoinPrice = 'ERROR';
       }
-      bitcoinPriceInUSD = receivedData['USD'].toString();
+      bitcoinPrice = receivedData[selectedCurrency].toString();
     });
-    print(bitcoinPriceInUSD);
   }
 
   DropdownButton<String> androidDropdown() {
@@ -43,9 +45,8 @@ class _PriceScreenState extends State<PriceScreen> {
       value: selectedCurrency,
       items: dropdownItems,
       onChanged: (value) {
-        setState(() {
-          selectedCurrency = value;
-        });
+        selectedCurrency = value;
+        updateUI();
       },
     );
   }
@@ -58,7 +59,8 @@ class _PriceScreenState extends State<PriceScreen> {
     return CupertinoPicker(
         itemExtent: 32.0,
         onSelectedItemChanged: (selectedIndex) {
-          print(selectedIndex);
+          selectedCurrency = currenciesList[selectedIndex];
+          updateUI();
         },
         children: pickerList);
   }
@@ -84,7 +86,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = $bitcoinPriceInUSD $selectedCurrency',
+                  '1 BTC = $bitcoinPrice $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
