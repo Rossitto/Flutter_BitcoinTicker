@@ -84,18 +84,28 @@ class _PriceScreenState extends State<PriceScreen> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          CryptoCard(
-              cryptoCurrency: cryptoCurrency1,
-              cryptoPrice: cryptoPrice1,
-              selectedCurrency: selectedCurrency),
-          CryptoCard(
-              cryptoCurrency: cryptoCurrency2,
-              cryptoPrice: cryptoPrice2,
-              selectedCurrency: selectedCurrency),
-          CryptoCard(
-              cryptoCurrency: cryptoCurrency3,
-              cryptoPrice: cryptoPrice3,
-              selectedCurrency: selectedCurrency),
+          Expanded(
+            child: CryptoCard(
+                cryptoCurrency: cryptoCurrency1,
+                cryptoPrice: cryptoPrice1,
+                selectedCurrency: selectedCurrency),
+          ),
+          Expanded(
+            child: CryptoCard(
+                cryptoCurrency: cryptoCurrency2,
+                cryptoPrice: cryptoPrice2,
+                selectedCurrency: selectedCurrency),
+          ),
+          Expanded(
+            child: CryptoCard(
+                cryptoCurrency: cryptoCurrency3,
+                cryptoPrice: cryptoPrice3,
+                selectedCurrency: selectedCurrency),
+          ),
+          Expanded(
+            flex: 5,
+            child: Container(),
+          ),
           Container(
             height: 150.0,
             alignment: Alignment.center,
@@ -130,14 +140,16 @@ class CryptoCard extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10.0),
         ),
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
-          child: Text(
-            '1 $cryptoCurrency = $cryptoPrice $selectedCurrency',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 20.0,
-              color: Colors.white,
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+            child: Text(
+              '1 $cryptoCurrency = $cryptoPrice $selectedCurrency',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Colors.white,
+              ),
             ),
           ),
         ),
