@@ -10,7 +10,12 @@ class PriceScreen extends StatefulWidget {
 
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'AUD';
-  String bitcoinPrice = '...';
+  String cryptoPrice1 = '...';
+  String cryptoPrice2 = '...';
+  String cryptoPrice3 = '...';
+  String cryptoCurrency1 = cryptoList[0];
+  String cryptoCurrency2 = cryptoList[1];
+  String cryptoCurrency3 = cryptoList[2];
   Map<String, dynamic> receivedData;
 
   @override
@@ -28,9 +33,13 @@ class _PriceScreenState extends State<PriceScreen> {
   void updateUI() {
     setState(() {
       if (receivedData == null) {
-        bitcoinPrice = 'ERROR';
+        cryptoPrice1 = 'ERROR';
+        cryptoPrice2 = 'ERROR';
+        cryptoPrice3 = 'ERROR';
       }
-      bitcoinPrice = receivedData[selectedCurrency].toString();
+      cryptoPrice1 = receivedData[cryptoCurrency1][selectedCurrency].toString();
+      cryptoPrice2 = receivedData[cryptoCurrency2][selectedCurrency].toString();
+      cryptoPrice3 = receivedData[cryptoCurrency3][selectedCurrency].toString();
     });
   }
 
@@ -73,7 +82,7 @@ class _PriceScreenState extends State<PriceScreen> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           Padding(
             padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
@@ -86,7 +95,49 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = $bitcoinPrice $selectedCurrency',
+                  '1 $cryptoCurrency1 = $cryptoPrice1 $selectedCurrency',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+            child: Card(
+              color: Colors.lightBlueAccent,
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                child: Text(
+                  '1 $cryptoCurrency2 = $cryptoPrice2 $selectedCurrency',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 20.0,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.fromLTRB(18.0, 18.0, 18.0, 0),
+            child: Card(
+              color: Colors.lightBlueAccent,
+              elevation: 5.0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0),
+              ),
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
+                child: Text(
+                  '1 $cryptoCurrency3 = $cryptoPrice3 $selectedCurrency',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,

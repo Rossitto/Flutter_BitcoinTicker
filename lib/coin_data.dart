@@ -14,7 +14,7 @@ const cryptoCompareApiURL =
 //     'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=$currenciesInString&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
 
 final String cryptoFullURL =
-    'https://min-api.cryptocompare.com/data/price?fsym=BTC&tsyms=AUD,BRL,CAD,CNY,EUR,GBP,HKD,IDR,ILS,INR,JPY,MXN,NOK,NZD,PLN,RON,RUB,SEK,SGD,USD,ZAR&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
+    'https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH,LTC&tsyms=AUD,BRL,CAD,CNY,EUR,GBP,HKD,IDR,ILS,INR,JPY,MXN,NOK,NZD,PLN,RON,RUB,SEK,SGD,USD,ZAR&api_key=1b49cfc9075c413b4be0532c564346e5ed252e69364366711d1f2eca330d4387';
 
 final String currenciesInString = currenciesList
     .toString()
